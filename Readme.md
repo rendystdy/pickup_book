@@ -18,7 +18,7 @@ Follow instructions for your given `development OS` and `target OS`.
 To create a new project using the boilerplate simply run :
 
 ```
-git clone https://bitbucket.org/rebelworksco/react-native-skeleton.git
+git clone https://github.com/rendystdy/pickup_book.git
 ```
 
 Assuming you have all the requirements installed, you can run the project by running:
