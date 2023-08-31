@@ -19,9 +19,7 @@ const axiosAPI = axios.create({
 });
 
 const getHeaders = (headers?: Record<string, string>) => {
-	const state = store.getState();
 	return {
-		'token': state.authReducers.token ?? '',
 		'Accept': 'application/json',
 		'Content-Type': 'applications/json',
 		...headers,
