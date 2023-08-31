@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 
 import { NavigationHelper, Ratio, useAppDispatch } from '@helpers';
 import { Images } from '@constant';
 import styles from './style';
 import { Actions } from '@store';
+import { Text } from '@components';
 function Splash() {
 
 	const setDeviceHeight = useAppDispatch(Actions.miscAction.setDeviceHeight);
@@ -27,7 +28,11 @@ function Splash() {
 
 	return (
 		<View style={ styles.container }>
-			{ /* <Images.LogoWhite /> */ }
+			<Image
+				source={ Images.HandBook }
+				resizeMode='contain'
+				style={ { width: 60, height: 60 } } />
+			<Text style={ { fontSize: 26, color: '#000', fontWeight: '500', letterSpacing: 1 } }>Pickup Books</Text>
 		</View>
 	);
 }

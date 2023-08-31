@@ -1,14 +1,54 @@
-import { Text, View } from 'react-native';
-import React from 'react';
+import { View } from 'react-native';
+import React, { useEffect } from 'react';
 import Toast from 'react-native-toast-message';
-import Icon from 'react-native-vector-icons/AntDesign';
 
-import { Button, Container } from '@components';
-import { Colors } from '@constant';
+import { Container, Header, ListOfBooks } from '@components';
 import styles from './style';
-import { NavigationHelper } from '@helpers';
+import { NavigationHelper, useAppDispatch, useAppSelector } from '@helpers';
+import { Actions } from '@store';
+import { IPayloadGetBooks } from 'src/interfaces/books';
 
 const Home = () => {
+	const classicBooks = useAppSelector(state => state.booksReducer.classicBooks);
+	const designBooks = useAppSelector(state => state.booksReducer.designBooks);
+	const programmingBooks = useAppSelector(state => state.booksReducer.programmingBooks);
+
+	const getClassicBooksDispatch = useAppDispatch(Actions.booksAction.getClassicBooks);
+	const getProgrammingBooksDispatch = useAppDispatch(Actions.booksAction.getProgrammingBooks);
+	const getDesignBooksDispatch = useAppDispatch(Actions.booksAction.getDesignBooks);
+
+	useEffect(() => {
+		getClassicBooks();
+		getProgrammingBooks();
+		getDesignBooks();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const getClassicBooks = () => {
+		const payload: IPayloadGetBooks = {
+			limit: 10,
+			offset: 0,
+		};
+
+		getClassicBooksDispatch(payload);
+	};
+
+	const getProgrammingBooks = () => {
+		const payload: IPayloadGetBooks = {
+			limit: 10,
+			offset: 0,
+		};
+
+		getProgrammingBooksDispatch(payload);
+	};
+	const getDesignBooks = () => {
+		const payload: IPayloadGetBooks = {
+			limit: 10,
+			offset: 0,
+		};
+
+		getDesignBooksDispatch(payload);
+	};
 
 	const showToast = (type: string) => {
 		Toast.show({
@@ -20,32 +60,29 @@ const Home = () => {
 
 	return (
 		<Container noPadding>
+			<Header />
 			<View style={ styles.container }>
-				<Text>Home Screen</Text>
-				<View style={ { marginTop: 10 } }>
-					<Button
-						onPress={ () => showToast('success') }
-						text='Toast Success'
-						type='outline'
-						color={ Colors.alert.green } />
-					<Button
-						onPress={ () => showToast('error') }
-						mt={ 10 }
-						text='Toast Error'
-						type='outline'
-						color={ Colors.alert.red } />
-					<Button
-						onPress={ () => NavigationHelper.push('Contact') }
-						text='Contact'
-						mt={ 10 }
-						color='white'
-						textStyle={ { marginRight: 4 } } >
-						<Icon
-							name='contacts'
-							color='white'
-							size={ 14 } />
-					</Button>
-				</View>
+				<ListOfBooks
+					data={ classicBooks }
+					label={ 'Classic Books' }
+					handleSeeAll={ () => NavigationHelper.push('Books', {
+						type: 'classic',
+					}) }
+				/>
+				<ListOfBooks
+					data={ programmingBooks }
+					label={ 'Programming Books' }
+					handleSeeAll={ () => NavigationHelper.push('Books', {
+						type: 'programming',
+					}) }
+				/>
+				<ListOfBooks
+					data={ designBooks }
+					label={ 'Design Books' }
+					handleSeeAll={ () => NavigationHelper.push('Books', {
+						type: 'design',
+					}) }
+				/>
 			</View>
 		</Container>
 	);
