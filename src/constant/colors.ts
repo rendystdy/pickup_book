@@ -13,7 +13,7 @@ const Colors = {
 		default: '#151515',
 	},
 	blue: {
-		default: '#39AAB4',
+		default: '#0376b8',
 	},
 	yellow: {
 		default: '#FFDE17',
