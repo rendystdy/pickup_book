@@ -5,6 +5,9 @@ import { Button, Text } from '@components';
 import { BooksInterface, ComponentInterface } from '@interfaces';
 import styles from './style';
 import { Colors } from '@constant';
+import { NavigationHelper, useAppDispatch } from '@helpers';
+import { Actions } from '@store';
+import { WorksEntity } from 'src/interfaces/books';
 
 interface Iitem {
   item: ComponentInterface.IListOfBooks.WorksEntity;
@@ -18,9 +21,27 @@ interface IProps {
 
 const ListOfBooks = ({ label, data, handleSeeAll }: IProps) => {
 
+  const setCartDispatch = useAppDispatch(Actions.bookingAction.setCart);
+
+  const handleAddToCart = (item: WorksEntity) => {
+    const payload = {
+      ...item,
+    };
+    setCartDispatch(payload);
+  };
+
+  const handleDetail = (item: WorksEntity) => {
+    NavigationHelper.push('DetailBook', {
+      ...item,
+    });
+  };
+
   const renderItem = ({ item }: Iitem) => {
     return (
-      <View style={ styles.wrapperItem }>
+      <TouchableOpacity
+        activeOpacity={ 0.8 }
+        onPress={ () => handleDetail(item) }
+        style={ styles.wrapperItem }>
         <View style={ styles.wrapperImg }>
           <Image
             source={ { uri: `https://covers.openlibrary.org/b/id/${ item.cover_id }.jpg` } }
@@ -28,10 +49,12 @@ const ListOfBooks = ({ label, data, handleSeeAll }: IProps) => {
             resizeMode='cover' />
         </View>
         <Button
-          buttonStyle={ styles.button }>
-          <Text style={ styles.titleBook }>Borrow</Text>
+          buttonStyle={ styles.button }
+          onPress={ () => handleAddToCart(item) }
+        >
+          <Text style={ styles.titleBook }>Add to carts</Text>
         </Button>
-      </View>
+      </TouchableOpacity>
     );
   };
 

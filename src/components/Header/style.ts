@@ -30,6 +30,16 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		letterSpacing: 1,
 	},
+	circleRed: {
+		width: 10,
+		height: 10,
+		borderRadius: 10 / 2,
+		backgroundColor: 'red',
+		position: 'absolute',
+		top: 0,
+		right: 0,
+		zIndex: 2,
+	},
 });
 
 export default styles;

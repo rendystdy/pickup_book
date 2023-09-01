@@ -38,7 +38,7 @@ const Container: React.FC<ComponentInterface.IContainer> = props => {
 			<StatusBar barStyle={ barStyle } />
 			<KeyboardAvoidingView
 				style={ { flex: 1 } }
-				behavior='padding'
+				behavior='height'
 				keyboardVerticalOffset={ 10 }>
 				{ noScroll ? (
 					<View style={ [{ flex: 1 }, contentContainerStyle] }>
