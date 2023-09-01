@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@helpers';
 import { ComponentInterface } from '@interfaces';
 import { useRoute } from '@react-navigation/native';
 import { Actions } from '@store';
-import { IPayloadGetBooks } from 'src/interfaces/books';
+import { IPayloadGetBooks, WorksEntity } from 'src/interfaces/books';
 import { Colors } from '@constant';
 
 interface Iitem {
@@ -17,7 +17,7 @@ interface Iitem {
 }
 
 const Books = () => {
-  const route = useRoute();
+  const route: any = useRoute();
   const type = route.params?.type;
 
   const loading = useAppSelector(state => state.booksReducer.loadingClassicBooks);
@@ -34,6 +34,14 @@ const Books = () => {
   const getClassicBooksDispatch = useAppDispatch(Actions.booksAction.getClassicBooks);
   const getProgrammingBooksDispatch = useAppDispatch(Actions.booksAction.getProgrammingBooks);
   const getDesignBooksDispatch = useAppDispatch(Actions.booksAction.getDesignBooks);
+  const setCartDispatch = useAppDispatch(Actions.bookingAction.setCart);
+
+  const handleAddToCart = (item: WorksEntity) => {
+    const payload = {
+      ...item,
+    };
+    setCartDispatch(payload);
+  };
 
   const renderItem = ({ item }: Iitem) => {
     return (
@@ -47,8 +55,10 @@ const Books = () => {
           style={ style.title }>{ item.title }
         </Text>
         <Button
-          buttonStyle={ style.button }>
-          <Text style={ style.titleBook }>Borrow</Text>
+          buttonStyle={ style.button }
+          onPress={ () => handleAddToCart(item) }
+        >
+          <Text style={ style.titleBook }>Add to cart</Text>
         </Button>
       </View>
     );
@@ -130,7 +140,7 @@ const Books = () => {
           contentContainerStyle={ { paddingHorizontal: 8, paddingBottom: 20 } }
           ItemSeparatorComponent={ () => <View style={ { height: 10 } } /> }
           columnWrapperStyle={ { justifyContent: 'space-between' } }
-          onEndReachedThreshold={ 0.2 }
+          onEndReachedThreshold={ 0.1 }
           ListFooterComponent={ renderFooter }
           onEndReached={ handleLoadMore }
         />
