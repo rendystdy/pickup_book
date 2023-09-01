@@ -15,7 +15,7 @@ Follow instructions for your given `development OS` and `target OS`.
 
 ## Quick start
 
-To create a new project using the boilerplate simply run :
+To start this project just run:
 
 ```
 git clone https://github.com/rendystdy/pickup_book.git
@@ -23,14 +23,7 @@ git clone https://github.com/rendystdy/pickup_book.git
 
 Assuming you have all the requirements installed, you can run the project by running:
 
+- copy the `env` file which is in the zip folder and paste it in the root of the project
 - `yarn install` to install all depedencies
 - `cd ios && pod install` to install all depedencies
 - `yarn <platform>` to run the *platform* application (remember to start a simulator or connect a device)
-
-## Reactotron
-
-Reactotron is a macOS, Windows, and Linux app for inspecting your React JS and React Native apps. for detail about reactotron you can refer this link
-
-```
- https://github.com/infinitered/reactotron
-```
