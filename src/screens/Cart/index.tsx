@@ -9,6 +9,7 @@ import styles from './style';
 import { NavigationHelper, useAppDispatch, useAppSelector } from '@helpers';
 import { AuthorsEntity, WorksEntity } from 'src/interfaces/books';
 import { Actions } from '@store';
+import { Colors } from '@constant';
 
 interface IItem {
   item: WorksEntity;
@@ -72,11 +73,15 @@ const Cart = () => {
           data={ carts }
           renderItem={ renderItem }
           keyExtractor={ (_, i) => i.toString() }
+          ListEmptyComponent={ () => <View style={ { flex: 1, alignSelf: 'center', justifyContent: 'center', alignItems: 'center' } }>
+            <Text style={ { fontSize: 22, fontWeight: 'bold', color: Colors.black.default } }>Empty</Text>
+          </View> }
           ItemSeparatorComponent={ () => <View style={ { height: 10 } } /> }
         />
         <View style={ styles.footer }>
           <Button
             buttonStyle={ styles.button }
+            disabled={ carts.length === 0 }
             onPress={ () => NavigationHelper.push('Checkout') }>
             <Text style={ styles.textButton }>Checkout</Text>
           </Button>
